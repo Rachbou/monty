@@ -23,9 +23,10 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	fileObj = open_file(filename);
+	fileObj = fopen(filename, "r");
 
-	while ((readed = getline(&buff, &line_len, fileObj)) != -1)
+	readed = getline(&buff, &line_len, fileObj);
+	while (readed != -1)
 	{
 		op_code = strtok(buff, "\t\n ");
 		if (op_code)
@@ -36,21 +37,22 @@ int main(int argc, char *argv[])
 			if (op_status == 100)
 			{
 				fclose(fileObj);
-				fprintf(stderr, "L%d: unknown instruction %s\n", line, opcode);
+				fprintf(stderr, "L%d: unknown instruction %s\n", line_num, op_code);
 				exit(EXIT_FAILURE);
 			}
 			if (op_status == 201)
 			{
 				fclose(fileObj);
-				fprintf(stderr, "L%d: usage: push integer\n", line);
+				fprintf(stderr, "L%d: usage: push integer\n", line_num);
 				exit(EXIT_FAILURE);
 			}
 		}
 
 		++line_num;
+		readed = getline(&buff, &line_len, fileObj);
 	}
 
-	frees_stack();
+	free(head);
 	free(buff);
 	fclose(fileObj);
 	return (0);

@@ -8,8 +8,6 @@
 #include <string.h>
 #include <unistd.h>
 
-extern stack_t *head;
-
 int main(int argc, char *argv[]);
 
 /**
@@ -28,6 +26,8 @@ typedef struct stack_s
         struct stack_s *next;
 } stack_t;
 
+extern stack_t *head;
+
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -44,7 +44,7 @@ typedef struct instruction_s
 
 unsigned int count_stack(stack_t *stack);
 int execute(char *op_code, char *op_param, unsigned int line);
-int check_digits(char *s)
+int check_digits(char *s);
 void push(stack_t **stack, unsigned int param);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);

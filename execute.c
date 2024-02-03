@@ -10,7 +10,6 @@
   */
 int execute(char *op_code, char *op_param, unsigned int line)
 {
-	int status_op = 0;
 	int i = 0;
 	void (*oprt)(stack_t **, unsigned int);
 
@@ -35,7 +34,7 @@ int execute(char *op_code, char *op_param, unsigned int line)
 	{
 		if (strcmp(op_code, "push") == 0)
 		{
-			if (param == NULL || check_digits(param) == 0)
+			if (op_param == NULL || check_digits(op_param) == 0)
 				return (201);
 			oprt(&head, atoi(op_param));
 		}
